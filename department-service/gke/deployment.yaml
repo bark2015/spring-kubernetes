@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: department-service
+  labels:
+    app: department-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: department-service
+  template:
+    metadata:
+      labels:
+        app: department-service
+    spec:
+      containers:
+        - name: department-service
+          # Replace $GCLOUD_PROJECT with your project ID
+          image: gcr.io/vernal-buffer-246304/department-service:latest
+          # This app listens on port 8080 for web traffic by default.
+          ports:
+          - containerPort: 8086
+          env:
+            - name: PORT
+              value: "8086"
+            - name: URL_EMPLOYEE_SERVICE
+              value: "http://localhost:8085/employee-service/department/"

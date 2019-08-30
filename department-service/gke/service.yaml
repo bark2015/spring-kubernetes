@@ -1,0 +1,14 @@
+# The hello service provides a load-balancing proxy over the hello-app
+# pods. By specifying the type as a 'LoadBalancer', Kubernetes Engine will
+# create an external HTTP load balancer.
+apiVersion: v1
+kind: Service
+metadata:
+  name: department-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: department-service
+  ports:
+  - port: 86
+    targetPort: 8086
